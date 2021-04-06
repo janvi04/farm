@@ -1,7 +1,7 @@
 @extends('layouts.appadmin')
 
 @section('title')
-    Products
+    Sliders
 @endsection
 
 @section('content')
@@ -9,13 +9,13 @@
     
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Products</h4>
-              @if(Session::has('status'))
-              <div class="alert alert-success">
-                  {{Session::get('status')}}
-              </div>
-            
-      @endif
+              <h4 class="card-title">Sliders</h4>
+@if(Session::has('status'))
+          <div class="alert alert-success">
+              {{Session::get('status')}}
+          </div>
+        
+@endif
               <div class="row">
                 <div class="col-12">
                   <div class="table-responsive">
@@ -24,23 +24,22 @@
                         <tr>
                             <th>Order #</th>
                             <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Category</th>
+                            <th>Description one</th>
+                            <th>Description two</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
 
-                        @foreach ($products as $product)
+                        @foreach ($sliders as $slider)
                         <tr>
                           <td>{{$increment}}</td>
-                          <td><img src="/storage/product_images/{{$product->product_image}}" alt=""></td>
-                          <td>{{$product->product_name}}</td>
-                          <td>{{$product->product_price}}</td>
-                          <td>{{$product->product_category}}</td>
-                          @if($product->status==1)
+                          <td><img src="/storage/slider_images/{{$slider->slider_image}}" alt=""></td>
+                          <td>{{$slider->description1}}</td>
+                          <td>{{$slider->description2}}</td>
+                      
+                          @if($slider->status==1)
                           <td>
                             <label class="badge badge-success">Activated</label>
                           </td>
@@ -51,14 +50,14 @@
                           @endif
                          
                           <td>
-                            <button class="btn btn-outline-primary" onclick="window.location='{{url('/edit_product/'.$product->id)}}'">Edit</button>
-                            <a href ="/delete_product/{{$product->id}}" class="btn btn-outline-danger" id="delete">Delete</a>
+                            <button class="btn btn-outline-primary" onclick="window.location='{{url('/edit_slider/'.$slider->id)}}'">Edit</button>
+                            <a href ="/delete_slider/{{$slider->id}}" class="btn btn-outline-danger" id="delete">Delete</a>
 
-                            @if ($product->status==1)
-                            <button class="btn btn-outline-warning" onclick="window.location='{{url('/unactivate_product/'.$product->id)}}'">Unactivate</button>
+                            @if ($slider->status==1)
+                            <button class="btn btn-outline-warning" onclick="window.location='{{url('/unactivate_slider/'.$slider->id)}}'">Unactivate</button>
 
                             @else
-                            <button class="btn btn-outline-success" onclick="window.location='{{url('/activate_product/'.$product->id)}}'">Activate</button>
+                            <button class="btn btn-outline-success" onclick="window.location='{{url('/activate_slider/'.$slider->id)}}'">Activate</button>
                             @endif
                            
                           </td>

@@ -250,5 +250,5 @@
 
 
 @section('scripts')
-<script src="js/data-table.js"></script>
+<script src="{{asset('backend/js/bt-maxLength.js')}}"></script>
 @endsection
