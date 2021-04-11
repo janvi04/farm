@@ -19,6 +19,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="table-responsive">
+                    <a class="btn btn-outline-success" href="{{URL::to('/view_pdf/')}}">View</a>
                     <table id="order-listing" class="table">
                       <thead>
                         <tr>
@@ -60,7 +61,8 @@
                             @else
                             <button class="btn btn-outline-success" onclick="window.location='{{url('/activate_product/'.$product->id)}}'">Activate</button>
                             @endif
-                           
+                            
+                            
                           </td>
                       </tr> 
                       {{Form::hidden('',$increment=$increment+1)}}

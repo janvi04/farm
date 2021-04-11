@@ -24,18 +24,14 @@ use App\Http\Controllers\CategoryController;
 
 
 Route::get('/',[ClientController::class,'home']);
-
 Route::get('/cart',[ClientController::class,'cart']);
-
 Route::get('/shop',[ClientController::class,'shop']);
-
-
 Route::get('/checkout',[ClientController::class,'checkout']);
-
 Route::get('/login',[ClientController::class,'login']);
-
 Route::get('/signup',[ClientController::class,'signup']);
-
+Route::post('/updateqty',[ClientController::class,'updateqty']);
+Route::get('/removeitem/{id}',[ClientController::class,'removeitem']);
+Route::post('/postcheckout',[ClientController::class,'postcheckout']);
 
 Route::get('/admin',[AdminController::class,'dashboard']);
 
@@ -46,6 +42,7 @@ Route::post('/savecategory',[CategoryController::class,'savecategory']);
 Route::get('/edit_category/{id}',[CategoryController::class,'edit']);
 Route::post('/updatecategory',[CategoryController::class,'updatecategory']);
 Route::get('/delete/{id}',[CategoryController::class,'delete']);
+Route::get('/view_by_cat/{name}',[CategoryController::class,'view_by_cat']);
 
 Route::get('/addproduct',[ProductController::class,'addproduct']);
 Route::get('/products',[ProductController::class,'products']);
@@ -55,6 +52,9 @@ Route::post('/updateproduct',[ProductController::class,'updateproduct']);
 Route::get('/delete_product/{id}',[ProductController::class,'delete_product']);
 Route::get('/activate_product/{id}',[ProductController::class,'activate_product']);
 Route::get('/unactivate_product/{id}',[ProductController::class,'unactivate_product']);
+Route::get('/addToCart/{id}', [ProductController::class,'addToCart']);
+Route::get('/view_pdf',[ProductController::class,'view_pdf']);
+
 
 Route::get('/addslider',[SliderController::class,'addslider']);
 Route::get('/sliders',[SliderController::class,'sliders']);
@@ -66,4 +66,7 @@ Route::get('/activate_slider/{id}',[SliderController::class,'activate_slider']);
 Route::get('/unactivate_slider/{id}',[SliderController::class,'unactivate_slider']);
 
 Route::get('/orders',[AdminController::class,'orders']);
+
+
+Route::get('/view_pdf/{id}',[PdfController::class,'view_pdf']);
 

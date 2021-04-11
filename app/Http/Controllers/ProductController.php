@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Redirect;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
+use PDF;
 
+
+use Session;
+use App\Cart;
 class ProductController extends Controller
 {
     //
@@ -161,5 +166,30 @@ class ProductController extends Controller
 
   }
 
- 
+
+  public function addToCart($id)
+  {
+    $product= Product::find($id);
+$oldCart = Session::has('cart')? Session::get('cart'):null;
+$cart = new Cart($oldCart);
+$cart->add($product, $id);
+Session::put('cart', $cart);
+
+//dd(Session::get('cart'));
+return redirect::to('/shop');
+  }
+
+    public function view_pdf(Request $request)
+    {
+        $products = Product::all();
+        view()->share('products',$products);
+        if($request->has('download'))
+        {
+
+        $pdf=PDF::loadView('view_pdf');
+        return $pdf->download('view_pdf');
+        }
+        return view('products');
+    }
+
 }

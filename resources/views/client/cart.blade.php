@@ -36,50 +36,48 @@
 						      </tr>
 						    </thead>
 						    <tbody>
+
+								@if(Session::has('cart'))
+								@foreach ($products as $product)
+									
 						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        <td class="product-remove"><a href="/removeitem/{{$product['product_id']}}"><span class="ion-ios-close"></span></a></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image:url(frontend/images/product-3.jpg);"></div></td>
+						        <td class="image-prod"><div class="img" style="background-image:url(/storage/product_images/{{$product['product_image']}});"></div></td>
 						        
 						        <td class="product-name">
-						        	<h3>Bell Pepper</h3>
+						        	<h3>{{$product['product_name']}}</h3>
 						        	<p>Far far away, behind the word mountains, far from the countries</p>
 						        </td>
 						        
-								<td class="price">$4.90</td>
-								<form action="">
+								<td class="price">{{$product['product_price']}}</td>
+								
+								{!!Form::open(['action'=>'App\Http\Controllers\ClientController@updateqty','method'=>'POST'])!!}
+								{{csrf_field()}}
+								
 									<td class="quantity">
 										<div class="input-group mb-3">
-										<input type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+										<input type="number" name="quantity" class="quantity form-control input-number" value="{{$product['qty']}}" min="1" max="100">
 									</div>
-								</form>
-						        
+
+									<div class="input-group mb-3">
+										<input type="hidden" name="id" class="quantity form-control input-number" value="{{$product['product_id']}}" min="1" max="100">
+									</div>
+							
+									{{Form::submit('Update',['class'=>'btn btn-primary'])}}
+									{!!Form::close()!!}
 									
 					          </td>
 						        
-						        <td class="total">$4.90</td>
+						        <td class="total">Rs{{$product['product_price']*$product['qty']}}</td>
 						      </tr><!-- END TR-->
+							  @endforeach
 
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(frontend/images/product-4.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Bell Pepper</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
-						        
-						        <td class="price">$15.70</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$15.70</td>
-						      </tr><!-- END TR-->
+								  
+							  @else
+								  
+							  @endif
+
 						    </tbody>
 						  </table>
 					  </div>
@@ -118,7 +116,7 @@
 	              </div>
 	            </form>
     				</div>
-    				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+    				<p><a href="/checkout" class="btn btn-primary py-3 px-4">Estimate</a></p>
     			</div>
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
